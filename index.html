@@ -27,12 +27,6 @@
       </div>
     </div>
     <main class="page">
-      <nav class="nav">
-        <a href="index.html">Dashboard</a>
-        <a href="goals.html">Goals</a>
-        <a href="reviews.html">Reviews</a>
-        <a href="data.html">Saved Data</a>
-      </nav>
       <header class="hero">
         <div class="hero__text">
           <p class="eyebrow">Black Book of Power Planner</p>
@@ -51,6 +45,12 @@
           </div>
         </div>
       </header>
+      <nav class="nav nav--bar">
+        <a href="index.html">Dashboard</a>
+        <a href="goals.html">Goals</a>
+        <a href="reviews.html">Reviews</a>
+        <a href="data.html">Saved Data</a>
+      </nav>
 
       <section class="grid">
         <div class="panel">
@@ -159,6 +159,36 @@
       </section>
 
       <section class="grid">
+        <div class="panel">
+          <h2>Threshold Crossings</h2>
+          <p class="subhead">Break the addiction to the edge. Cross the line.</p>
+          <form id="thresholdForm" class="form">
+            <label>
+              Threshold Title
+              <input name="title" required placeholder="Speak the hard truth in 1:1s" />
+            </label>
+            <label>
+              Domain
+              <select name="domain">
+                <option value="Leadership">Leadership</option>
+                <option value="Finance">Finance</option>
+                <option value="Fitness">Fitness</option>
+                <option value="Personal">Personal</option>
+              </select>
+            </label>
+            <label>
+              Statement
+              <input name="statement" required placeholder="I will take the uncomfortable action." />
+            </label>
+            <label>
+              Due Date
+              <input name="dueDate" type="date" />
+            </label>
+            <button class="btn" type="submit">Add Threshold</button>
+          </form>
+          <div id="thresholdList" class="list"></div>
+        </div>
+
         <div class="panel">
           <h2>Leadership Focus</h2>
           <div class="focus">

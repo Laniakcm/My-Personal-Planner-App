@@ -109,6 +109,15 @@ body[data-theme="dark"] {
   color: var(--ice-strong);
 }
 
+.nav--bar {
+  padding: 12px 16px;
+  border: 1px solid rgba(127, 195, 255, 0.3);
+  border-radius: 999px;
+  justify-content: center;
+  background: rgba(10, 12, 16, 0.6);
+  box-shadow: 0 10px 24px rgba(127, 195, 255, 0.12);
+}
+
 .hero {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
