@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Black Book Planner</title>
+    <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" content="#0b0c10" />
+    <link rel="apple-touch-icon" href="icon-192.png" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="page">
+      <header class="hero">
+        <div class="hero__text">
+          <p class="eyebrow">Black Book of Power Planner</p>
+          <h1>Plan. Lead. Execute.</h1>
+          <p class="subhead">
+            A personal command center for goals, financial progress, and daily domination.
+          </p>
+        </div>
+        <div class="hero__card">
+          <h2>Daily Command</h2>
+          <p id="motivationLine">Discipline beats motivation; consistency builds empires.</p>
+          <div class="hero__actions">
+            <button id="newMotivationBtn" class="btn btn--ghost">New Battle Line</button>
+            <button id="themeToggle" class="btn btn--ghost" type="button">Toggle Dark Mode</button>
+            <button id="exportPdfBtn" class="btn btn--ghost" type="button">Export PDF</button>
+          </div>
+        </div>
+      </header>
+
+      <section class="grid">
+        <div class="panel">
+          <h2>Power Goals</h2>
+          <form id="goalForm" class="form">
+            <label>
+              Goal Title
+              <input name="title" required placeholder="Build a high-trust team" />
+            </label>
+            <label>
+              Motivation
+              <input name="motivation" required placeholder="Lead with clarity and courage" />
+            </label>
+            <div class="form__row">
+              <label>
+                Target (%)
+                <input name="target" type="number" min="1" max="100" value="100" />
+              </label>
+              <label>
+                Progress (%)
+                <input name="progress" type="number" min="0" max="100" value="0" />
+              </label>
+            </div>
+            <div class="form__row">
+              <label>
+                Priority (1-5)
+                <input name="priority" type="number" min="1" max="5" value="3" />
+              </label>
+              <label>
+                Due Date
+                <input name="dueDate" type="date" />
+              </label>
+            </div>
+            <button class="btn" type="submit">Add Power Goal</button>
+          </form>
+          <div id="goalList" class="list"></div>
+        </div>
+
+        <div class="panel">
+          <h2>Financial Power</h2>
+          <form id="financeForm" class="form">
+            <label>
+              Financial Goal
+              <input name="title" required placeholder="Emergency fund" />
+            </label>
+            <label>
+              Motivation
+              <input name="motivation" required placeholder="Freedom through cash flow" />
+            </label>
+            <div class="form__row">
+              <label>
+                Target ($)
+                <input name="target" type="number" min="1" value="10000" />
+              </label>
+              <label>
+                Starting ($)
+                <input name="starting" type="number" min="0" value="0" />
+              </label>
+            </div>
+            <div class="form__row">
+              <label>
+                Priority (1-5)
+                <input name="priority" type="number" min="1" max="5" value="4" />
+              </label>
+              <label>
+                Due Date
+                <input name="dueDate" type="date" />
+              </label>
+            </div>
+            <button class="btn" type="submit">Add Financial Goal</button>
+          </form>
+          <div id="financeList" class="list"></div>
+        </div>
+      </section>
+
+      <section class="grid">
+        <div class="panel">
+          <h2>Threshold Crossings</h2>
+          <p class="subhead">Break the addiction to the edge. Cross the line.</p>
+          <form id="thresholdForm" class="form">
+            <label>
+              Threshold Title
+              <input name="title" required placeholder="Speak the hard truth in 1:1s" />
+            </label>
+            <label>
+              Domain
+              <select name="domain">
+                <option value="Leadership">Leadership</option>
+                <option value="Finance">Finance</option>
+                <option value="Fitness">Fitness</option>
+                <option value="Personal">Personal</option>
+              </select>
+            </label>
+            <label>
+              Statement
+              <input name="statement" required placeholder="I will take the uncomfortable action." />
+            </label>
+            <label>
+              Due Date
+              <input name="dueDate" type="date" />
+            </label>
+            <button class="btn" type="submit">Add Threshold</button>
+          </form>
+          <div id="thresholdList" class="list"></div>
+        </div>
+      </section>
+
+      <section class="grid">
+        <div class="panel">
+          <h2>Daily Plan</h2>
+          <form id="taskForm" class="form">
+            <label>
+              Task
+              <input name="title" required placeholder="Coach 1:1 with direct report" />
+            </label>
+            <div class="form__row">
+              <label>
+                Duration (min)
+                <input name="duration" type="number" min="10" step="5" value="30" />
+              </label>
+              <label>
+                Energy
+                <select name="energy">
+                  <option value="low">Low</option>
+                  <option value="medium" selected>Medium</option>
+                  <option value="high">High</option>
+                </select>
+              </label>
+            </div>
+            <label>
+              Link to Goal (optional)
+              <select name="goalId">
+                <option value="">No linked goal</option>
+              </select>
+            </label>
+            <button class="btn" type="submit">Add Task</button>
+          </form>
+
+          <div class="auto-plan">
+            <h3>Auto Plan My Day</h3>
+            <div class="form__row">
+              <label>
+                Available Hours
+                <input id="availableHours" type="number" min="1" max="16" value="8" />
+              </label>
+              <label>
+                Start Time
+                <input id="startTime" type="time" value="09:00" />
+              </label>
+            </div>
+            <button id="generatePlanBtn" class="btn btn--ghost" type="button">
+              Generate Battle Plan
+            </button>
+            <div id="suggestions" class="suggestions"></div>
+          </div>
+
+          <div id="taskList" class="list"></div>
+        </div>
+
+        <div class="panel">
+          <h2>Leadership Focus</h2>
+          <div class="focus">
+            <div>
+              <h3>Daily Intention</h3>
+              <textarea id="dailyIntention" placeholder="How will you lead today?"></textarea>
+            </div>
+            <div>
+              <h3>Win Tracker</h3>
+              <textarea id="winTracker" placeholder="List key wins and decisions."></textarea>
+            </div>
+            <button id="saveNotesBtn" class="btn btn--ghost">Save Notes</button>
+          </div>
+          <div class="divider"></div>
+          <h3>Accountability</h3>
+          <ul class="checklist">
+            <li><input type="checkbox" id="chk-clarity" /> <label for="chk-clarity">Clarity: communicated priorities</label></li>
+            <li><input type="checkbox" id="chk-feedback" /> <label for="chk-feedback">Feedback: coached someone today</label></li>
+            <li><input type="checkbox" id="chk-momentum" /> <label for="chk-momentum">Momentum: shipped or finished key work</label></li>
+            <li><input type="checkbox" id="chk-rest" /> <label for="chk-rest">Energy: protected focus time</label></li>
+          </ul>
+          <button id="saveChecksBtn" class="btn btn--ghost">Save Accountability</button>
+        </div>
+      </section>
+
+      <section class="grid">
+        <div class="panel">
+          <h2>Core 4 Daily Tracker</h2>
+          <div class="form">
+            <label>
+              Date
+              <input id="core4Date" type="date" />
+            </label>
+          </div>
+          <div class="core4-grid">
+            <div class="core4-card">
+              <h3>Body</h3>
+              <p>Train minimum 10 minutes.</p>
+              <label><input id="core4-body-train" type="checkbox" /> Train 10+ min</label>
+              <label><input id="core4-body-fuel" type="checkbox" /> Fuel with intention</label>
+              <label><input id="core4-body-recover" type="checkbox" /> Recover (sleep/mobility)</label>
+            </div>
+            <div class="core4-card">
+              <h3>Being</h3>
+              <p>Minimum 10 minutes meditation.</p>
+              <label><input id="core4-being-meditation" type="checkbox" /> Meditation 10+ min</label>
+              <label><input id="core4-being-gratitude" type="checkbox" /> Gratitude practice</label>
+              <label><input id="core4-being-alignment" type="checkbox" /> Alignment (values/spirit)</label>
+            </div>
+            <div class="core4-card">
+              <h3>Balance</h3>
+              <label><input id="core4-balance-family" type="checkbox" /> Family presence</label>
+              <label><input id="core4-balance-relationship" type="checkbox" /> Relationship touchpoint</label>
+              <label><input id="core4-balance-rest" type="checkbox" /> Rest/recharge</label>
+            </div>
+            <div class="core4-card">
+              <h3>Business</h3>
+              <label><input id="core4-business-execution" type="checkbox" /> Execute top priority</label>
+              <label><input id="core4-business-revenue" type="checkbox" /> Revenue/progress action</label>
+              <label><input id="core4-business-leadership" type="checkbox" /> Leadership action</label>
+            </div>
+          </div>
+          <div class="core4-scoreline">
+            <span id="core4Score" class="pill">Score: 0%</span>
+            <span id="core4Hint" class="pill">12 checks total</span>
+          </div>
+          <label>
+            Core 4 Notes
+            <textarea id="core4Notes" placeholder="What did you do today?"></textarea>
+          </label>
+          <label>
+            Daily Journal (Being)
+            <textarea id="dailyJournal" placeholder="Daily journal entry..."></textarea>
+          </label>
+          <div class="card__row">
+            <button id="saveCore4Btn" class="btn btn--ghost" type="button">Save Core 4</button>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h2>Weekly Review</h2>
+          <div class="review">
+            <label>
+              Wins & outcomes
+              <textarea id="weeklyWins" placeholder="What moved the needle this week?"></textarea>
+            </label>
+            <label>
+              Lessons & adjustments
+              <textarea id="weeklyLessons" placeholder="Where did you drift and how do you correct?"></textarea>
+            </label>
+            <label>
+              Top 3 priorities for next week
+              <textarea id="weeklyPriorities" placeholder="1) ..."></textarea>
+            </label>
+            <button id="saveWeeklyReviewBtn" class="btn btn--ghost">Save Weekly Review</button>
+          </div>
+          <div class="divider"></div>
+          <h2>Quarterly Review</h2>
+          <div class="review">
+            <label>
+              Biggest wins this quarter
+              <textarea id="quarterWins" placeholder="What did you accomplish?"></textarea>
+            </label>
+            <label>
+              Goals to reset or remove
+              <textarea id="quarterResets" placeholder="What no longer serves the mission?"></textarea>
+            </label>
+            <label>
+              Next quarter focus
+              <textarea id="quarterFocus" placeholder="The one thing to master next."></textarea>
+            </label>
+            <button id="saveQuarterReviewBtn" class="btn btn--ghost">Save Quarterly Review</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="grid">
+        <div class="panel">
+          <h2>Command Calendar</h2>
+          <div class="calendar-controls">
+            <button id="prevMonthBtn" class="btn btn--ghost" type="button">Prev</button>
+            <div id="calendarLabel" class="calendar-label"></div>
+            <button id="nextMonthBtn" class="btn btn--ghost" type="button">Next</button>
+          </div>
+          <div id="calendarGrid" class="calendar-grid"></div>
+          <div class="calendar-legend">
+            <span class="pill">Goal due</span>
+            <span class="pill">Finance due</span>
+            <span class="pill">Threshold due</span>
+            <span class="pill">Core 4</span>
+          </div>
+        </div>
+        <div class="panel">
+          <h2>Calendar Notes</h2>
+          <form id="calendarNoteForm" class="form">
+            <label>
+              Date
+              <input id="calendarDate" name="date" type="date" required />
+            </label>
+            <label>
+              Focus / Event
+              <input name="title" required placeholder="Quarterly review session" />
+            </label>
+            <label>
+              Notes
+              <textarea name="notes" placeholder="Key outcomes or agenda"></textarea>
+            </label>
+            <button class="btn" type="submit">Add Calendar Note</button>
+          </form>
+          <div id="calendarNoteList" class="list"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>Built for relentless execution. Stored locally in your browser.</p>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>
