@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Black Book Planner · Reviews</title>
+    <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" content="#0b0c10" />
+    <link rel="apple-touch-icon" href="icon-192.png" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body data-page="reviews">
+    <div id="authGate" class="auth-gate">
+      <div class="auth-gate__card">
+        <h2>Enter Access Key</h2>
+        <p>This space is protected.</p>
+        <input id="authPassword" type="password" placeholder="Access key" />
+        <button id="authSubmit" class="btn btn--ghost" type="button">Unlock</button>
+        <p id="authError" class="auth-gate__error"></p>
+      </div>
+    </div>
+    <div id="weeklyModal" class="modal">
+      <div class="modal__card">
+        <h2>Weekly Review Due</h2>
+        <p>It’s Sunday. Close the week and record your wins.</p>
+        <button id="weeklyModalClose" class="btn btn--ghost" type="button">Start Review</button>
+      </div>
+    </div>
+    <main class="page">
+      <nav class="nav">
+        <a href="index.html">Dashboard</a>
+        <a href="goals.html">Goals</a>
+        <a href="reviews.html">Reviews</a>
+        <a href="data.html">Saved Data</a>
+      </nav>
+
+      <header class="hero">
+        <div class="hero__text">
+          <p class="eyebrow">Black Book of Power Planner</p>
+          <h1>Weekly & Quarterly Reviews</h1>
+          <p class="subhead">Archive the week. Reset the quarter.</p>
+        </div>
+        <div class="hero__card">
+          <h2>Command</h2>
+          <p id="motivationLine">Discipline beats motivation; consistency builds empires.</p>
+          <div class="hero__actions">
+            <button id="newMotivationBtn" class="btn btn--ghost">New Battle Line</button>
+            <button id="themeToggle" class="btn btn--ghost" type="button">Toggle Dark Mode</button>
+            <button id="exportPdfBtn" class="btn btn--ghost" type="button">Export PDF</button>
+          </div>
+        </div>
+      </header>
+
+      <section class="grid">
+        <div class="panel">
+          <h2>Weekly Review</h2>
+          <div class="review">
+            <label>
+              Wins & outcomes
+              <textarea id="weeklyWins" placeholder="What moved the needle this week?"></textarea>
+            </label>
+            <label>
+              Lessons & adjustments
+              <textarea id="weeklyLessons" placeholder="Where did you drift and how do you correct?"></textarea>
+            </label>
+            <label>
+              Top 3 priorities for next week
+              <textarea id="weeklyPriorities" placeholder="1) ..."></textarea>
+            </label>
+            <button id="saveWeeklyReviewBtn" class="btn btn--ghost">Save Weekly Review</button>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h2>Quarterly Review</h2>
+          <div class="review">
+            <label>
+              Biggest wins this quarter
+              <textarea id="quarterWins" placeholder="What did you accomplish?"></textarea>
+            </label>
+            <label>
+              Goals to reset or remove
+              <textarea id="quarterResets" placeholder="What no longer serves the mission?"></textarea>
+            </label>
+            <label>
+              Next quarter focus
+              <textarea id="quarterFocus" placeholder="The one thing to master next."></textarea>
+            </label>
+            <button id="saveQuarterReviewBtn" class="btn btn--ghost">Save Quarterly Review</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>Built for relentless execution. Stored locally in your browser.</p>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>

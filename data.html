@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Black Book Planner · Saved Data</title>
+    <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" content="#0b0c10" />
+    <link rel="apple-touch-icon" href="icon-192.png" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body data-page="data">
+    <div id="authGate" class="auth-gate">
+      <div class="auth-gate__card">
+        <h2>Enter Access Key</h2>
+        <p>This space is protected.</p>
+        <input id="authPassword" type="password" placeholder="Access key" />
+        <button id="authSubmit" class="btn btn--ghost" type="button">Unlock</button>
+        <p id="authError" class="auth-gate__error"></p>
+      </div>
+    </div>
+    <main class="page">
+      <nav class="nav">
+        <a href="index.html">Dashboard</a>
+        <a href="goals.html">Goals</a>
+        <a href="reviews.html">Reviews</a>
+        <a href="data.html">Saved Data</a>
+      </nav>
+
+      <header class="hero">
+        <div class="hero__text">
+          <p class="eyebrow">Black Book of Power Planner</p>
+          <h1>Saved Data</h1>
+          <p class="subhead">A full view of your logged history.</p>
+        </div>
+        <div class="hero__card">
+          <h2>Command</h2>
+          <p id="motivationLine">Discipline beats motivation; consistency builds empires.</p>
+          <div class="hero__actions">
+            <button id="newMotivationBtn" class="btn btn--ghost">New Battle Line</button>
+            <button id="themeToggle" class="btn btn--ghost" type="button">Toggle Dark Mode</button>
+            <button id="exportPdfBtn" class="btn btn--ghost" type="button">Export PDF</button>
+          </div>
+        </div>
+      </header>
+
+      <section class="grid">
+        <div class="panel">
+          <h2>Goals</h2>
+          <div id="dataGoals" class="list"></div>
+        </div>
+        <div class="panel">
+          <h2>Financial Goals</h2>
+          <div id="dataFinances" class="list"></div>
+        </div>
+      </section>
+
+      <section class="grid">
+        <div class="panel">
+          <h2>Thresholds</h2>
+          <div id="dataThresholds" class="list"></div>
+        </div>
+        <div class="panel">
+          <h2>Daily Tasks</h2>
+          <div id="dataTasks" class="list"></div>
+        </div>
+      </section>
+
+      <section class="grid">
+        <div class="panel">
+          <h2>Core 4 Logs</h2>
+          <div id="dataCore4" class="list"></div>
+        </div>
+        <div class="panel">
+          <h2>Reviews</h2>
+          <div id="dataReviews" class="list"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>Built for relentless execution. Stored locally in your browser.</p>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>

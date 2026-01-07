@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Black Book Planner · Goals</title>
+    <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" content="#0b0c10" />
+    <link rel="apple-touch-icon" href="icon-192.png" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body data-page="goals">
+    <div id="authGate" class="auth-gate">
+      <div class="auth-gate__card">
+        <h2>Enter Access Key</h2>
+        <p>This space is protected.</p>
+        <input id="authPassword" type="password" placeholder="Access key" />
+        <button id="authSubmit" class="btn btn--ghost" type="button">Unlock</button>
+        <p id="authError" class="auth-gate__error"></p>
+      </div>
+    </div>
+    <main class="page">
+      <nav class="nav">
+        <a href="index.html">Dashboard</a>
+        <a href="goals.html">Goals</a>
+        <a href="reviews.html">Reviews</a>
+        <a href="data.html">Saved Data</a>
+      </nav>
+
+      <header class="hero">
+        <div class="hero__text">
+          <p class="eyebrow">Black Book of Power Planner</p>
+          <h1>Goals & Thresholds</h1>
+          <p class="subhead">Build the mission, then cross the line.</p>
+        </div>
+        <div class="hero__card">
+          <h2>Command</h2>
+          <p id="motivationLine">Discipline beats motivation; consistency builds empires.</p>
+          <div class="hero__actions">
+            <button id="newMotivationBtn" class="btn btn--ghost">New Battle Line</button>
+            <button id="themeToggle" class="btn btn--ghost" type="button">Toggle Dark Mode</button>
+            <button id="exportPdfBtn" class="btn btn--ghost" type="button">Export PDF</button>
+          </div>
+        </div>
+      </header>
+
+      <section class="grid">
+        <div class="panel">
+          <h2>Power Goals</h2>
+          <form id="goalForm" class="form">
+            <label>
+              Goal Title
+              <input name="title" required placeholder="Build a high-trust team" />
+            </label>
+            <label>
+              Motivation
+              <input name="motivation" required placeholder="Lead with clarity and courage" />
+            </label>
+            <div class="form__row">
+              <label>
+                Target (%)
+                <input name="target" type="number" min="1" max="100" value="100" />
+              </label>
+              <label>
+                Progress (%)
+                <input name="progress" type="number" min="0" max="100" value="0" />
+              </label>
+            </div>
+            <div class="form__row">
+              <label>
+                Priority (1-5)
+                <input name="priority" type="number" min="1" max="5" value="3" />
+              </label>
+              <label>
+                Due Date
+                <input name="dueDate" type="date" />
+              </label>
+            </div>
+            <button class="btn" type="submit">Add Power Goal</button>
+          </form>
+          <div id="goalList" class="list"></div>
+        </div>
+
+        <div class="panel">
+          <h2>Financial Power</h2>
+          <form id="financeForm" class="form">
+            <label>
+              Financial Goal
+              <input name="title" required placeholder="Emergency fund" />
+            </label>
+            <label>
+              Motivation
+              <input name="motivation" required placeholder="Freedom through cash flow" />
+            </label>
+            <div class="form__row">
+              <label>
+                Target ($)
+                <input name="target" type="number" min="1" value="10000" />
+              </label>
+              <label>
+                Starting ($)
+                <input name="starting" type="number" min="0" value="0" />
+              </label>
+            </div>
+            <div class="form__row">
+              <label>
+                Priority (1-5)
+                <input name="priority" type="number" min="1" max="5" value="4" />
+              </label>
+              <label>
+                Due Date
+                <input name="dueDate" type="date" />
+              </label>
+            </div>
+            <button class="btn" type="submit">Add Financial Goal</button>
+          </form>
+          <div id="financeList" class="list"></div>
+        </div>
+      </section>
+
+      <section class="grid">
+        <div class="panel">
+          <h2>Threshold Crossings</h2>
+          <p class="subhead">Break the addiction to the edge. Cross the line.</p>
+          <form id="thresholdForm" class="form">
+            <label>
+              Threshold Title
+              <input name="title" required placeholder="Speak the hard truth in 1:1s" />
+            </label>
+            <label>
+              Domain
+              <select name="domain">
+                <option value="Leadership">Leadership</option>
+                <option value="Finance">Finance</option>
+                <option value="Fitness">Fitness</option>
+                <option value="Personal">Personal</option>
+              </select>
+            </label>
+            <label>
+              Statement
+              <input name="statement" required placeholder="I will take the uncomfortable action." />
+            </label>
+            <label>
+              Due Date
+              <input name="dueDate" type="date" />
+            </label>
+            <button class="btn" type="submit">Add Threshold</button>
+          </form>
+          <div id="thresholdList" class="list"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>Built for relentless execution. Stored locally in your browser.</p>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>

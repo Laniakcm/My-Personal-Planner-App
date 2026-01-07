@@ -2,6 +2,9 @@ const CACHE_NAME = "bbp-cache-v1";
 const ASSETS = [
   "./",
   "./index.html",
+  "./goals.html",
+  "./reviews.html",
+  "./data.html",
   "./styles.css",
   "./app.js",
   "./manifest.json",

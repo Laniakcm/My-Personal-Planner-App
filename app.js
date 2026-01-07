@@ -3,6 +3,8 @@ const THEME_KEY = "blackBookTheme";
 const AUTH_KEY = "bbpAuthUnlocked";
 const AUTH_PASSWORD = "j6kEwrAY8534$$";
 
+const getEl = (id) => document.getElementById(id);
+
 const motivationLines = [
   "Power is built in the silent hours; show up anyway.",
   "You command the day or the day commands you.",
@@ -47,16 +49,16 @@ const defaultData = {
 
 const state = loadData();
 
-const goalForm = document.getElementById("goalForm");
-const financeForm = document.getElementById("financeForm");
-const taskForm = document.getElementById("taskForm");
-const goalList = document.getElementById("goalList");
-const financeList = document.getElementById("financeList");
-const taskList = document.getElementById("taskList");
-const goalSelect = taskForm.querySelector("select[name='goalId']");
-const thresholdForm = document.getElementById("thresholdForm");
-const thresholdList = document.getElementById("thresholdList");
-const core4DateInput = document.getElementById("core4Date");
+const goalForm = getEl("goalForm");
+const financeForm = getEl("financeForm");
+const taskForm = getEl("taskForm");
+const goalList = getEl("goalList");
+const financeList = getEl("financeList");
+const taskList = getEl("taskList");
+const goalSelect = taskForm ? taskForm.querySelector("select[name='goalId']") : null;
+const thresholdForm = getEl("thresholdForm");
+const thresholdList = getEl("thresholdList");
+const core4DateInput = getEl("core4Date");
 const core4Checks = [
   { key: "bodyTrain", id: "core4-body-train", label: "Body: Train 10+ min" },
   { key: "bodyFuel", id: "core4-body-fuel", label: "Body: Fuel with intention" },
@@ -70,43 +72,52 @@ const core4Checks = [
   { key: "businessExecution", id: "core4-business-execution", label: "Business: Execute priority" },
   { key: "businessRevenue", id: "core4-business-revenue", label: "Business: Revenue action" },
   { key: "businessLeadership", id: "core4-business-leadership", label: "Business: Leadership action" },
-].map((item) => ({ ...item, el: document.getElementById(item.id) }));
-const core4Notes = document.getElementById("core4Notes");
-const dailyJournal = document.getElementById("dailyJournal");
-const core4Score = document.getElementById("core4Score");
-const core4Hint = document.getElementById("core4Hint");
-const saveCore4Btn = document.getElementById("saveCore4Btn");
-const weeklyWins = document.getElementById("weeklyWins");
-const weeklyLessons = document.getElementById("weeklyLessons");
-const weeklyPriorities = document.getElementById("weeklyPriorities");
-const quarterWins = document.getElementById("quarterWins");
-const quarterResets = document.getElementById("quarterResets");
-const quarterFocus = document.getElementById("quarterFocus");
-const saveWeeklyReviewBtn = document.getElementById("saveWeeklyReviewBtn");
-const saveQuarterReviewBtn = document.getElementById("saveQuarterReviewBtn");
-const calendarGrid = document.getElementById("calendarGrid");
-const calendarLabel = document.getElementById("calendarLabel");
-const prevMonthBtn = document.getElementById("prevMonthBtn");
-const nextMonthBtn = document.getElementById("nextMonthBtn");
-const calendarNoteForm = document.getElementById("calendarNoteForm");
-const calendarNoteList = document.getElementById("calendarNoteList");
-const calendarDateInput = document.getElementById("calendarDate");
-const motivationLine = document.getElementById("motivationLine");
-const newMotivationBtn = document.getElementById("newMotivationBtn");
-const suggestionsEl = document.getElementById("suggestions");
-const generatePlanBtn = document.getElementById("generatePlanBtn");
-const availableHoursInput = document.getElementById("availableHours");
-const startTimeInput = document.getElementById("startTime");
-const dailyIntention = document.getElementById("dailyIntention");
-const winTracker = document.getElementById("winTracker");
-const saveNotesBtn = document.getElementById("saveNotesBtn");
-const saveChecksBtn = document.getElementById("saveChecksBtn");
-const themeToggle = document.getElementById("themeToggle");
-const exportPdfBtn = document.getElementById("exportPdfBtn");
-const authGate = document.getElementById("authGate");
-const authPassword = document.getElementById("authPassword");
-const authSubmit = document.getElementById("authSubmit");
-const authError = document.getElementById("authError");
+].map((item) => ({ ...item, el: getEl(item.id) }));
+const activeCore4Checks = core4Checks.filter((item) => item.el);
+const core4Notes = getEl("core4Notes");
+const dailyJournal = getEl("dailyJournal");
+const core4Score = getEl("core4Score");
+const core4Hint = getEl("core4Hint");
+const saveCore4Btn = getEl("saveCore4Btn");
+const weeklyWins = getEl("weeklyWins");
+const weeklyLessons = getEl("weeklyLessons");
+const weeklyPriorities = getEl("weeklyPriorities");
+const quarterWins = getEl("quarterWins");
+const quarterResets = getEl("quarterResets");
+const quarterFocus = getEl("quarterFocus");
+const saveWeeklyReviewBtn = getEl("saveWeeklyReviewBtn");
+const saveQuarterReviewBtn = getEl("saveQuarterReviewBtn");
+const calendarGrid = getEl("calendarGrid");
+const calendarLabel = getEl("calendarLabel");
+const prevMonthBtn = getEl("prevMonthBtn");
+const nextMonthBtn = getEl("nextMonthBtn");
+const calendarNoteForm = getEl("calendarNoteForm");
+const calendarNoteList = getEl("calendarNoteList");
+const calendarDateInput = getEl("calendarDate");
+const motivationLine = getEl("motivationLine");
+const newMotivationBtn = getEl("newMotivationBtn");
+const suggestionsEl = getEl("suggestions");
+const generatePlanBtn = getEl("generatePlanBtn");
+const availableHoursInput = getEl("availableHours");
+const startTimeInput = getEl("startTime");
+const dailyIntention = getEl("dailyIntention");
+const winTracker = getEl("winTracker");
+const saveNotesBtn = getEl("saveNotesBtn");
+const saveChecksBtn = getEl("saveChecksBtn");
+const themeToggle = getEl("themeToggle");
+const exportPdfBtn = getEl("exportPdfBtn");
+const authGate = getEl("authGate");
+const authPassword = getEl("authPassword");
+const authSubmit = getEl("authSubmit");
+const authError = getEl("authError");
+const weeklyModal = getEl("weeklyModal");
+const weeklyModalClose = getEl("weeklyModalClose");
+const dataGoals = getEl("dataGoals");
+const dataFinances = getEl("dataFinances");
+const dataThresholds = getEl("dataThresholds");
+const dataTasks = getEl("dataTasks");
+const dataCore4 = getEl("dataCore4");
+const dataReviews = getEl("dataReviews");
 
 let calendarViewDate = new Date();
 
@@ -119,169 +130,209 @@ function init() {
   hookEvents();
   rotateMotivation();
   registerServiceWorker();
+  checkWeeklyReminder();
 }
 
 function hookEvents() {
-  goalForm.addEventListener("submit", (event) => {
-    event.preventDefault();
-    const data = formToObject(goalForm);
-    state.goals.push({
-      id: makeId(),
-      title: data.title,
-      motivation: data.motivation,
-      target: Number(data.target || 100),
-      progress: Number(data.progress || 0),
-      priority: Number(data.priority || 3),
-      dueDate: data.dueDate || "",
+  if (goalForm) {
+    goalForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const data = formToObject(goalForm);
+      state.goals.push({
+        id: makeId(),
+        title: data.title,
+        motivation: data.motivation,
+        target: Number(data.target || 100),
+        progress: Number(data.progress || 0),
+        priority: Number(data.priority || 3),
+        dueDate: data.dueDate || "",
+      });
+      goalForm.reset();
+      saveAndRender();
     });
-    goalForm.reset();
-    saveAndRender();
-  });
+  }
 
-  financeForm.addEventListener("submit", (event) => {
-    event.preventDefault();
-    const data = formToObject(financeForm);
-    state.finances.push({
-      id: makeId(),
-      title: data.title,
-      motivation: data.motivation,
-      target: Number(data.target || 0),
-      starting: Number(data.starting || 0),
-      transactions: [],
-      priority: Number(data.priority || 3),
-      dueDate: data.dueDate || "",
+  if (financeForm) {
+    financeForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const data = formToObject(financeForm);
+      state.finances.push({
+        id: makeId(),
+        title: data.title,
+        motivation: data.motivation,
+        target: Number(data.target || 0),
+        starting: Number(data.starting || 0),
+        transactions: [],
+        priority: Number(data.priority || 3),
+        dueDate: data.dueDate || "",
+      });
+      financeForm.reset();
+      saveAndRender();
     });
-    financeForm.reset();
-    saveAndRender();
-  });
+  }
 
-  taskForm.addEventListener("submit", (event) => {
-    event.preventDefault();
-    const data = formToObject(taskForm);
-    state.tasks.push({
-      id: makeId(),
-      title: data.title,
-      duration: Number(data.duration || 30),
-      energy: data.energy || "medium",
-      goalId: data.goalId || "",
-      completed: false,
+  if (taskForm) {
+    taskForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const data = formToObject(taskForm);
+      state.tasks.push({
+        id: makeId(),
+        title: data.title,
+        duration: Number(data.duration || 30),
+        energy: data.energy || "medium",
+        goalId: data.goalId || "",
+        completed: false,
+      });
+      taskForm.reset();
+      saveAndRender();
     });
-    taskForm.reset();
-    saveAndRender();
-  });
+  }
 
-  thresholdForm.addEventListener("submit", (event) => {
-    event.preventDefault();
-    const data = formToObject(thresholdForm);
-    state.thresholds.push({
-      id: makeId(),
-      title: data.title,
-      domain: data.domain || "Leadership",
-      statement: data.statement,
-      dueDate: data.dueDate || "",
-      crossed: false,
+  if (thresholdForm) {
+    thresholdForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const data = formToObject(thresholdForm);
+      state.thresholds.push({
+        id: makeId(),
+        title: data.title,
+        domain: data.domain || "Leadership",
+        statement: data.statement,
+        dueDate: data.dueDate || "",
+        crossed: false,
+      });
+      thresholdForm.reset();
+      saveAndRender();
     });
-    thresholdForm.reset();
-    saveAndRender();
-  });
+  }
 
-  newMotivationBtn.addEventListener("click", rotateMotivation);
+  if (newMotivationBtn) {
+    newMotivationBtn.addEventListener("click", rotateMotivation);
+  }
 
-  generatePlanBtn.addEventListener("click", () => {
-    const hours = Number(availableHoursInput.value || 8);
-    const startTime = startTimeInput.value || "09:00";
-    const suggestions = buildAutoPlan(hours, startTime);
-    renderSuggestions(suggestions);
-  });
+  if (generatePlanBtn) {
+    generatePlanBtn.addEventListener("click", () => {
+      const hours = Number(availableHoursInput.value || 8);
+      const startTime = startTimeInput.value || "09:00";
+      const suggestions = buildAutoPlan(hours, startTime);
+      renderSuggestions(suggestions);
+    });
+  }
 
-  saveNotesBtn.addEventListener("click", () => {
-    state.notes.intention = dailyIntention.value.trim();
-    state.notes.wins = winTracker.value.trim();
-    saveData(state);
-  });
+  if (saveNotesBtn) {
+    saveNotesBtn.addEventListener("click", () => {
+      state.notes.intention = dailyIntention.value.trim();
+      state.notes.wins = winTracker.value.trim();
+      saveData(state);
+    });
+  }
 
-  saveChecksBtn.addEventListener("click", () => {
-    state.checks = {
-      clarity: document.getElementById("chk-clarity").checked,
-      feedback: document.getElementById("chk-feedback").checked,
-      momentum: document.getElementById("chk-momentum").checked,
-      rest: document.getElementById("chk-rest").checked,
-    };
-    saveData(state);
-  });
+  if (saveChecksBtn) {
+    saveChecksBtn.addEventListener("click", () => {
+      state.checks = {
+        clarity: document.getElementById("chk-clarity").checked,
+        feedback: document.getElementById("chk-feedback").checked,
+        momentum: document.getElementById("chk-momentum").checked,
+        rest: document.getElementById("chk-rest").checked,
+      };
+      saveData(state);
+    });
+  }
 
-  saveCore4Btn.addEventListener("click", () => {
-    const dateKey = core4DateInput.value || formatDateKey(new Date());
-    state.core4Log[dateKey] = {
-      checks: Object.fromEntries(core4Checks.map((item) => [item.key, item.el.checked])),
+  if (saveCore4Btn) {
+    saveCore4Btn.addEventListener("click", () => {
+      const dateKey = core4DateInput.value || formatDateKey(new Date());
+      state.core4Log[dateKey] = {
+      checks: Object.fromEntries(
+        core4Checks.map((item) => [item.key, item.el ? item.el.checked : false])
+      ),
       notes: core4Notes.value.trim(),
       journal: dailyJournal.value.trim(),
-    };
-    saveAndRender();
-  });
-
-  core4DateInput.addEventListener("change", () => {
-    loadCore4ForDate(core4DateInput.value);
-  });
-
-  saveWeeklyReviewBtn.addEventListener("click", () => {
-    const entry = {
-      date: formatDateKey(new Date()),
-      wins: weeklyWins.value.trim(),
-      lessons: weeklyLessons.value.trim(),
-      priorities: weeklyPriorities.value.trim(),
-    };
-    state.reviews.weekly = entry;
-    state.reviews.weeklyHistory = state.reviews.weeklyHistory || [];
-    state.reviews.weeklyHistory.push(entry);
-    saveData(state);
-  });
-
-  saveQuarterReviewBtn.addEventListener("click", () => {
-    const entry = {
-      date: formatDateKey(new Date()),
-      wins: quarterWins.value.trim(),
-      resets: quarterResets.value.trim(),
-      focus: quarterFocus.value.trim(),
-    };
-    state.reviews.quarterly = entry;
-    state.reviews.quarterlyHistory = state.reviews.quarterlyHistory || [];
-    state.reviews.quarterlyHistory.push(entry);
-    saveData(state);
-  });
-
-  prevMonthBtn.addEventListener("click", () => {
-    calendarViewDate = new Date(calendarViewDate.getFullYear(), calendarViewDate.getMonth() - 1, 1);
-    renderCalendar();
-  });
-
-  nextMonthBtn.addEventListener("click", () => {
-    calendarViewDate = new Date(calendarViewDate.getFullYear(), calendarViewDate.getMonth() + 1, 1);
-    renderCalendar();
-  });
-
-  calendarNoteForm.addEventListener("submit", (event) => {
-    event.preventDefault();
-    const data = formToObject(calendarNoteForm);
-    state.calendarNotes.push({
-      id: makeId(),
-      date: data.date,
-      title: data.title,
-      notes: data.notes || "",
+      };
+      saveAndRender();
     });
-    calendarNoteForm.reset();
-    saveAndRender();
-  });
+  }
 
-  themeToggle.addEventListener("click", () => {
-    const nextTheme = document.body.dataset.theme === "dark" ? "light" : "dark";
-    applyTheme(nextTheme);
-    saveTheme(nextTheme);
-  });
+  if (core4DateInput) {
+    core4DateInput.addEventListener("change", () => {
+      loadCore4ForDate(core4DateInput.value);
+    });
+  }
 
-  exportPdfBtn.addEventListener("click", () => {
-    exportToPdf();
-  });
+  if (saveWeeklyReviewBtn) {
+    saveWeeklyReviewBtn.addEventListener("click", () => {
+      const entry = {
+        date: formatDateKey(new Date()),
+        wins: weeklyWins.value.trim(),
+        lessons: weeklyLessons.value.trim(),
+        priorities: weeklyPriorities.value.trim(),
+      };
+      state.reviews.weekly = entry;
+      state.reviews.weeklyHistory = state.reviews.weeklyHistory || [];
+      state.reviews.weeklyHistory.push(entry);
+      saveData(state);
+      if (weeklyModal) {
+        weeklyModal.style.display = "none";
+      }
+    });
+  }
+
+  if (saveQuarterReviewBtn) {
+    saveQuarterReviewBtn.addEventListener("click", () => {
+      const entry = {
+        date: formatDateKey(new Date()),
+        wins: quarterWins.value.trim(),
+        resets: quarterResets.value.trim(),
+        focus: quarterFocus.value.trim(),
+      };
+      state.reviews.quarterly = entry;
+      state.reviews.quarterlyHistory = state.reviews.quarterlyHistory || [];
+      state.reviews.quarterlyHistory.push(entry);
+      saveData(state);
+    });
+  }
+
+  if (prevMonthBtn) {
+    prevMonthBtn.addEventListener("click", () => {
+      calendarViewDate = new Date(calendarViewDate.getFullYear(), calendarViewDate.getMonth() - 1, 1);
+      renderCalendar();
+    });
+  }
+
+  if (nextMonthBtn) {
+    nextMonthBtn.addEventListener("click", () => {
+      calendarViewDate = new Date(calendarViewDate.getFullYear(), calendarViewDate.getMonth() + 1, 1);
+      renderCalendar();
+    });
+  }
+
+  if (calendarNoteForm) {
+    calendarNoteForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const data = formToObject(calendarNoteForm);
+      state.calendarNotes.push({
+        id: makeId(),
+        date: data.date,
+        title: data.title,
+        notes: data.notes || "",
+      });
+      calendarNoteForm.reset();
+      saveAndRender();
+    });
+  }
+
+  if (themeToggle) {
+    themeToggle.addEventListener("click", () => {
+      const nextTheme = document.body.dataset.theme === "dark" ? "light" : "dark";
+      applyTheme(nextTheme);
+      saveTheme(nextTheme);
+    });
+  }
+
+  if (exportPdfBtn) {
+    exportPdfBtn.addEventListener("click", () => {
+      exportToPdf();
+    });
+  }
 }
 
 function renderAll() {
@@ -296,9 +347,11 @@ function renderAll() {
   renderReviews();
   renderCalendar();
   renderCalendarNotes();
+  renderDataPage();
 }
 
 function renderGoals() {
+  if (!goalList) return;
   goalList.innerHTML = "";
   if (!state.goals.length) {
     goalList.appendChild(emptyNote("No power goals yet. Add one to begin."));
@@ -311,6 +364,7 @@ function renderGoals() {
 }
 
 function renderFinances() {
+  if (!financeList) return;
   financeList.innerHTML = "";
   if (!state.finances.length) {
     financeList.appendChild(emptyNote("No financial goals yet. Add one to build wealth."));
@@ -323,6 +377,7 @@ function renderFinances() {
 }
 
 function renderTasks() {
+  if (!taskList) return;
   taskList.innerHTML = "";
   if (!state.tasks.length) {
     taskList.appendChild(emptyNote("No tasks planned yet."));
@@ -373,6 +428,7 @@ function renderTasks() {
 }
 
 function renderGoalSelect() {
+  if (!goalSelect) return;
   const allGoals = [...state.goals, ...state.finances];
   goalSelect.innerHTML = '<option value="">No linked goal</option>';
   allGoals.forEach((goal) => {
@@ -384,6 +440,7 @@ function renderGoalSelect() {
 }
 
 function renderThresholds() {
+  if (!thresholdList) return;
   thresholdList.innerHTML = "";
   if (!state.thresholds.length) {
     thresholdList.appendChild(emptyNote("No thresholds yet. Define the line you must cross."));
@@ -435,38 +492,54 @@ function renderThresholds() {
 }
 
 function renderNotes() {
+  if (!dailyIntention || !winTracker) return;
   dailyIntention.value = state.notes.intention || "";
   winTracker.value = state.notes.wins || "";
 }
 
 function renderChecks() {
-  document.getElementById("chk-clarity").checked = state.checks.clarity;
-  document.getElementById("chk-feedback").checked = state.checks.feedback;
-  document.getElementById("chk-momentum").checked = state.checks.momentum;
-  document.getElementById("chk-rest").checked = state.checks.rest;
+  const clarity = getEl("chk-clarity");
+  const feedback = getEl("chk-feedback");
+  const momentum = getEl("chk-momentum");
+  const rest = getEl("chk-rest");
+  if (!clarity || !feedback || !momentum || !rest) return;
+  clarity.checked = state.checks.clarity;
+  feedback.checked = state.checks.feedback;
+  momentum.checked = state.checks.momentum;
+  rest.checked = state.checks.rest;
 }
 
 function renderCore4() {
+  if (!core4DateInput || !core4Score) return;
   const todayKey = formatDateKey(new Date());
   if (!core4DateInput.value) {
     core4DateInput.value = todayKey;
   }
-  core4Hint.textContent = `${core4Checks.length} checks total`;
+  if (core4Hint) {
+    core4Hint.textContent = `${core4Checks.length} checks total`;
+  }
   loadCore4ForDate(core4DateInput.value);
 }
 
 function loadCore4ForDate(dateKey) {
   const entry = normalizeCore4Entry(state.core4Log[dateKey]);
   core4Checks.forEach((item) => {
-    item.el.checked = Boolean(entry.checks[item.key]);
+    if (item.el) {
+      item.el.checked = Boolean(entry.checks[item.key]);
+    }
   });
-  core4Notes.value = entry.notes || "";
-  dailyJournal.value = entry.journal || "";
+  if (core4Notes) {
+    core4Notes.value = entry.notes || "";
+  }
+  if (dailyJournal) {
+    dailyJournal.value = entry.journal || "";
+  }
   updateCore4Score();
 }
 
 function updateCore4Score() {
-  const checkedCount = core4Checks.reduce(
+  if (!core4Score) return;
+  const checkedCount = activeCore4Checks.reduce(
     (total, item) => total + Number(item.el.checked),
     0
   );
@@ -475,6 +548,7 @@ function updateCore4Score() {
 }
 
 function renderReviews() {
+  if (!weeklyWins || !quarterWins) return;
   weeklyWins.value = state.reviews.weekly.wins || "";
   weeklyLessons.value = state.reviews.weekly.lessons || "";
   weeklyPriorities.value = state.reviews.weekly.priorities || "";
@@ -484,6 +558,7 @@ function renderReviews() {
 }
 
 function renderCalendar() {
+  if (!calendarGrid || !calendarLabel) return;
   calendarGrid.innerHTML = "";
   const year = calendarViewDate.getFullYear();
   const month = calendarViewDate.getMonth();
@@ -525,6 +600,7 @@ function renderCalendar() {
 }
 
 function renderCalendarNotes() {
+  if (!calendarNoteList) return;
   calendarNoteList.innerHTML = "";
   if (!state.calendarNotes.length) {
     calendarNoteList.appendChild(emptyNote("No calendar notes yet."));
@@ -554,6 +630,104 @@ function renderCalendarNotes() {
       saveAndRender();
     });
   });
+}
+
+function renderDataPage() {
+  if (!dataGoals && !dataFinances && !dataThresholds && !dataTasks && !dataCore4 && !dataReviews) {
+    return;
+  }
+
+  if (dataGoals) {
+    dataGoals.innerHTML = state.goals.length
+      ? state.goals
+          .map(
+            (goal) => `
+              <div class="card">
+                <strong>${escapeHtml(goal.title)}</strong>
+                <div>${escapeHtml(goal.motivation || "")}</div>
+                <div class="pill">${calcPercent(goal.progress, goal.target)}%</div>
+              </div>
+            `
+          )
+          .join("")
+      : `<div class="card">No goals yet.</div>`;
+  }
+
+  if (dataFinances) {
+    dataFinances.innerHTML = state.finances.length
+      ? state.finances
+          .map((goal) => {
+            const current = calcFinanceProgress(goal);
+            return `
+              <div class="card">
+                <strong>${escapeHtml(goal.title)}</strong>
+                <div>${escapeHtml(goal.motivation || "")}</div>
+                <div class="pill">${calcPercent(current, goal.target)}%</div>
+              </div>
+            `;
+          })
+          .join("")
+      : `<div class="card">No financial goals yet.</div>`;
+  }
+
+  if (dataThresholds) {
+    dataThresholds.innerHTML = state.thresholds.length
+      ? state.thresholds
+          .map(
+            (item) => `
+              <div class="card">
+                <strong>${escapeHtml(item.title)}</strong>
+                <div>${escapeHtml(item.statement)}</div>
+                <div class="pill">${item.crossed ? "Crossed" : "Pending"}</div>
+              </div>
+            `
+          )
+          .join("")
+      : `<div class="card">No thresholds yet.</div>`;
+  }
+
+  if (dataTasks) {
+    dataTasks.innerHTML = state.tasks.length
+      ? state.tasks
+          .map(
+            (task) => `
+              <div class="card">
+                <strong>${escapeHtml(task.title)}</strong>
+                <div class="pill">${task.completed ? "Done" : "Open"}</div>
+              </div>
+            `
+          )
+          .join("")
+      : `<div class="card">No tasks yet.</div>`;
+  }
+
+  if (dataCore4) {
+    const entries = Object.entries(state.core4Log).sort((a, b) => b[0].localeCompare(a[0]));
+    dataCore4.innerHTML = entries.length
+      ? entries
+          .map(([date, entry]) => {
+            const normalized = normalizeCore4Entry(entry);
+            return `
+              <div class="card">
+                <strong>${date}</strong>
+                <div class="pill">${core4ScoreForDay(normalized)}%</div>
+                ${normalized.journal ? `<div>${escapeHtml(normalized.journal)}</div>` : ""}
+              </div>
+            `;
+          })
+          .join("")
+      : `<div class="card">No Core 4 logs yet.</div>`;
+  }
+
+  if (dataReviews) {
+    const weekly = state.reviews.weeklyHistory || [];
+    const quarterly = state.reviews.quarterlyHistory || [];
+    const reviewHtml = [
+      ...weekly.map((entry) => `<div class="card"><strong>Weekly ${entry.date}</strong><div>${escapeHtml(entry.wins || "")}</div></div>`),
+      ...quarterly.map((entry) => `<div class="card"><strong>Quarterly ${entry.date}</strong><div>${escapeHtml(entry.wins || "")}</div></div>`),
+    ];
+    dataReviews.innerHTML = reviewHtml.length ? reviewHtml.join("") : `<div class="card">No reviews yet.</div>`;
+  }
 }
 
 function buildGoalCard(goal, type) {
@@ -721,6 +895,7 @@ function scheduleTasks(tasks, minutesAvailable, startTime) {
 }
 
 function renderSuggestions(suggestions) {
+  if (!suggestionsEl) return;
   suggestionsEl.innerHTML = "";
   if (!suggestions.length) {
     suggestionsEl.appendChild(emptyNote("No suggestions yet. Add goals first."));
@@ -752,6 +927,7 @@ function renderSuggestions(suggestions) {
 }
 
 function rotateMotivation() {
+  if (!motivationLine) return;
   const line = motivationLines[Math.floor(Math.random() * motivationLines.length)];
   motivationLine.textContent = line;
 }
@@ -814,6 +990,23 @@ function goalsDueOn(dateKey) {
   const dueGoals = state.goals.filter((goal) => goal.dueDate === dateKey);
   const dueFinances = state.finances.filter((goal) => goal.dueDate === dateKey);
   return [...dueGoals, ...dueFinances];
+}
+
+function getLatestWeeklyReviewDate() {
+  const entries = state.reviews.weeklyHistory || [];
+  const dates = entries.map((entry) => entry.date).filter(Boolean);
+  if (!dates.length) return null;
+  return dates.sort().at(-1);
+}
+
+function isSameWeek(dateA, dateB) {
+  const startA = new Date(dateA);
+  startA.setHours(0, 0, 0, 0);
+  startA.setDate(startA.getDate() - startA.getDay());
+  const startB = new Date(dateB);
+  startB.setHours(0, 0, 0, 0);
+  startB.setDate(startB.getDate() - startB.getDay());
+  return startA.getTime() === startB.getTime();
 }
 
 function core4ScoreForDay(entry) {
@@ -1203,10 +1396,13 @@ function saveTheme(theme) {
 
 function applyTheme(theme) {
   document.body.dataset.theme = theme;
-  themeToggle.textContent = theme === "dark" ? "Toggle Light Mode" : "Toggle Dark Mode";
+  if (themeToggle) {
+    themeToggle.textContent = theme === "dark" ? "Toggle Light Mode" : "Toggle Dark Mode";
+  }
 }
 
 function initAuthGate() {
+  if (!authGate || !authPassword || !authSubmit || !authError) return;
   if (localStorage.getItem(AUTH_KEY) === "true") {
     authGate.style.display = "none";
     return;
@@ -1238,6 +1434,21 @@ function registerServiceWorker() {
   }
 }
 
-core4Checks.forEach((item) => {
+function checkWeeklyReminder() {
+  if (!weeklyModal) return;
+  const today = new Date();
+  if (today.getDay() !== 0) return;
+  const latest = getLatestWeeklyReviewDate();
+  if (!latest || !isSameWeek(today, new Date(latest))) {
+    weeklyModal.style.display = "flex";
+  }
+  if (weeklyModalClose) {
+    weeklyModalClose.addEventListener("click", () => {
+      weeklyModal.style.display = "none";
+    });
+  }
+}
+
+activeCore4Checks.forEach((item) => {
   item.el.addEventListener("change", updateCore4Score);
 });

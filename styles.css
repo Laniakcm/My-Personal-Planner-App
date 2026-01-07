@@ -52,6 +52,27 @@ body {
   min-height: 18px;
 }
 
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 7, 10, 0.8);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9998;
+}
+
+.modal__card {
+  width: min(420px, 90vw);
+  background: rgba(10, 12, 16, 0.9);
+  border: 1px solid rgba(127, 195, 255, 0.35);
+  border-radius: 16px;
+  padding: 24px;
+  display: grid;
+  gap: 12px;
+  text-align: center;
+}
+
 body[data-theme="dark"] {
   --ink: #efe6d4;
   --ink-soft: #d1c2a9;
@@ -68,6 +89,24 @@ body[data-theme="dark"] {
   max-width: 1200px;
   margin: 0 auto;
   padding: 40px 24px 72px;
+}
+
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.nav a {
+  text-decoration: none;
+  color: var(--ice);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.nav a:hover {
+  color: var(--ice-strong);
 }
 
 .hero {
