@@ -1,5 +1,7 @@
 const STORAGE_KEY = "blackBookPlannerV1";
 const THEME_KEY = "blackBookTheme";
+const AUTH_KEY = "bbpAuthUnlocked";
+const AUTH_PASSWORD = "j6kEwrAY8534$$";
 
 const motivationLines = [
   "Power is built in the silent hours; show up anyway.",
@@ -101,6 +103,10 @@ const saveNotesBtn = document.getElementById("saveNotesBtn");
 const saveChecksBtn = document.getElementById("saveChecksBtn");
 const themeToggle = document.getElementById("themeToggle");
 const exportPdfBtn = document.getElementById("exportPdfBtn");
+const authGate = document.getElementById("authGate");
+const authPassword = document.getElementById("authPassword");
+const authSubmit = document.getElementById("authSubmit");
+const authError = document.getElementById("authError");
 
 let calendarViewDate = new Date();
 
@@ -108,6 +114,7 @@ init();
 
 function init() {
   applyTheme(loadTheme());
+  initAuthGate();
   renderAll();
   hookEvents();
   rotateMotivation();
@@ -1197,6 +1204,32 @@ function saveTheme(theme) {
 function applyTheme(theme) {
   document.body.dataset.theme = theme;
   themeToggle.textContent = theme === "dark" ? "Toggle Light Mode" : "Toggle Dark Mode";
+}
+
+function initAuthGate() {
+  if (localStorage.getItem(AUTH_KEY) === "true") {
+    authGate.style.display = "none";
+    return;
+  }
+
+  const attemptUnlock = () => {
+    if (authPassword.value === AUTH_PASSWORD) {
+      localStorage.setItem(AUTH_KEY, "true");
+      authGate.style.display = "none";
+      authPassword.value = "";
+      authError.textContent = "";
+    } else {
+      authError.textContent = "Incorrect access key.";
+      authPassword.value = "";
+    }
+  };
+
+  authSubmit.addEventListener("click", attemptUnlock);
+  authPassword.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      attemptUnlock();
+    }
+  });
 }
 
 function registerServiceWorker() {
